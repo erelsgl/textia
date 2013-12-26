@@ -1,0 +1,66 @@
+/* ערכו קובץ זה כדי להתאים את הרקע Monobook באתר כולו *//* <div style="direction: ltr;"><pre> */
+/* שינויי תצוגה: */
+
+/* ביטול הדגשת לשוניות פעילות והלחצן "שמור דף" */
+div#p-cactions li.selected, input#wpSave
+{
+    font-weight: normal;
+}
+
+/* תיקוני באגים */
+
+/* תיקון תצוגה בדף ההעדפות */
+fieldset
+{
+    padding-right: 25px;
+}
+
+/* עקיפת באג 2020 - מוויקיפדיה ביידיש */
+ul
+{
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+ol
+{
+    margin-left: 2.4em;
+    margin-right: 2.4em;
+}
+
+/**** סגנונות הקשורים לביאור התנ"ך ****/
+
+/*   כדי ש[[תבנית:ב]] לא תוסתר על ידי תיבת הניווט ותיבת החיפוש  */
+#p-navigation {z-index:1;}
+#p-search {z-index:1;}
+
+.word_with_explain {
+   border-bottom:1px dotted #77d;
+   cursor:help;
+}
+
+.the_explain {
+   visibility: hidden; 
+   border: 1px solid #000; 
+   padding: 1px 3px 1px 1px; 
+   width: 111pt; 
+   z-index: 9; 
+   position: absolute; 
+   background-color: #ffc; 
+   display: inline; 
+   font-size: 11pt; 
+   line-height: 13pt; 
+   color: black; 
+   font-family: sans-serif;
+}
+
+.click_for_details {
+   font-size: 9pt;
+}
+
+.click_to_edit {
+   float: left; 
+   position: relative; 
+   top: -0.1em;
+}
+
+/* </pre></div> */

@@ -1,0 +1,14 @@
+AddType text/plain .txt
+AddType text/plain .log
+
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+
+# source paths are relative to the current directory
+RewriteEngine ON
+RewriteRule ^wiki/(.*)$    http://tora.us.fm/quest/world/article.php?title=$1 [R]
+RewriteRule ^world/?$  http://tora.us.fm/quest/world/world.php?title=משחק:טקסטיה [R]
+RewriteRule ^facebook/?$  http://tora.us.fm/quest/facebook/world.php?title=משחק:טקסטיה [R]

@@ -1,0 +1,88 @@
+#main {width:100%}
+
+#user {
+	width:30%;
+	vertical-align:top;
+	background:#fee;
+	padding:20px 0 20px 0
+	}
+
+#field {
+	width:70%; 
+	vertical-align:top;
+	border-right:50px;
+	border-left:50px;
+	border-color:#efe;
+	border-style:solid;
+	background:#fff; 
+}
+
+
+#field #sky {
+	background:#ccf;
+	padding: 20px 40px 20px 40px;
+}
+
+#field #text {
+	padding: 0 20px 0 20px;
+}
+
+#field #floor {
+	background:#ffc;
+	padding: 20px 40px 20px 40px;
+}
+
+body {
+	font-size:14px;
+}
+
+#signin_gadget,  #signin_gadget iframe  {
+	height:auto; background:#ffc;
+	float:left; width:200px; height:30px;
+}
+#members_gadget, #members_gadget iframe {
+	height:300px; background:#fcf
+}
+
+#main_gadget, #main_gadget iframe {
+	height:3000px; width:100%; background:#fff;
+}
+#rate_gadget, #rate_gadget iframe {
+	height:auto; background:#ddffcc;
+	float:left; width:300px; height:30px;
+}
+
+div#signin_gadget {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:1;
+}
+
+div#main_gadget {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:0;
+}
+
+#rate_gadget {
+	position:absolute;
+	top:20px;
+	left:0;
+	z-index:1;
+}
+
+#rate_gadget iframe {
+	padding:0 5px 0 5px;
+	border:solid white 5px;
+}
+
+#test_gadget {
+	width:100%;
+	z-index:-1;
+}
+
+table td {
+	vertical-align:top;
+}

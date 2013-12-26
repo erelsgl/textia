@@ -1,0 +1,3 @@
+AuthName "quest admin"
+AuthType Basic
+require valid-user

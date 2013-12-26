@@ -1,0 +1,150 @@
+/* Stylesheet for a Facebook iframe */
+
+html {background:#bbf; padding:10px; font-size:14px}
+body {background:#bbf; padding:1px; font-size:14px}
+div {-moz-border-radius: 1.5em;}
+div.world {background:#ccf; padding:10px}
+div.land  {background:#ddf; padding:10px}
+div.city  {background:#eef; padding:10px}
+div.soldier {background:#f8f8ff; padding:10px}
+div.treasurehunt {background:#eef; padding:10px}
+div.article {background:#f8f8ff; padding:10px}
+a.back {font-size:12px}
+
+/* set smaller sizes for Facebook and align to right, because the frame is smaller */
+h1 {font-size:32px; text-align:right; }
+h2 {font-size:26px; text-align:right}
+h3 {font-size:20px; text-align:right}
+
+
+.greeting, .stats {font-size:13px; direction:rtl}
+
+q {color:#008; font-weight:bold}
+
+div.land  .city_in_land {width:200px; height:200px; float:right; text-align:center; margin:10px 10px 10px 10px}
+
+div.land .city_in_land img.city  {width:150px; height:150px}
+div.land .city_in_land img.gfc_thumbnail {height:48px; width:48px; background:#eee; position:relative; top:70px;left:0px}
+
+div.city img.city {width:150px; height:150px; float:left; margin:0 30px 30px 0}
+
+div.city img.gfc_thumbnail {height:48px; width:48px;   float:left; background:#eee; position:relative; top:20px;left:100px}
+div.city img.treasure {width:50px; height:50px; display:inline; margin:5px 5px 5px 5px}
+div.city a.treasure {display:inline;float:right}
+
+div.city div.soldiers {clear:both}
+
+div.city div.treasurehunt img.position  {width:200px; height:200px; float:left; margin:0 30px 30px 0}
+
+div.city div.treasurehunt img.treasure {width:250px; height:250px; float:left; margin:0 30px 30px 0}
+
+.yes_no_form {margin:auto; padding:1em 5em 1em 5em; text-align:center}
+.yes_no_form form {display:inline;}
+.yes_no_form form.yes input {height:50px; width:150px; background:#0fc}
+.yes_no_form form.no  input {height:50px; width:150px; background:#f0c}
+
+.direction_form {padding:1em 5em 1em 5em; clear:both }
+
+.entrance_form  {background:#f8f8ff; text-align:center; margin:0 5em 0 5em}
+
+.direction_form a {display:inline;height:50px; width:200px; text-decoration:none}
+.direction_form a img {border:none}
+.direction_form a.direction0 {background:#f0c}
+div.treasurehunt a.direction1 {background:#0fc}
+div.treasurehunt a.restart {background:#ffc}
+
+#news_on_world_map {float:left; width:250px}
+#news_on_world_map .news .text {font-size:11px}
+#news_on_world_map .news img.gfc_thumbnail {height:24px; width:24px}
+#news_on_world_map .news img.treasure {height:20px; width:20px}
+
+.news#news {
+	border:solid 1px #004; padding:1px 1px 1px 1px;  background:#f8f8ff;
+	position:absolute; top:60px; left:30px; width:300px; z-index:2
+}
+.news#leaders {
+	border:solid 1px #004; padding:1px 1px 1px 1px;  background:#f8f8ff;
+	position:absolute; top:100px; left:30px; width:300px; z-index:1
+}
+.news a {text-decoration:none}
+.news table {width:100%}
+.news td {vertical-align:middle; border:none}
+.news img.gfc_thumbnail {height:48px; width:48px}
+.news td.user {padding:1px 0 1px 0; margin:0}
+.news td.user a#link {text-decoration:none;border:none}
+.news#news .text {font-size:12px}
+.news#leaders .text {font-size:14px}
+.news td.text {padding:0 10px 0 0; margin:0}
+.news#news .time {font-size:11px}
+.news#leaders .time {font-size:14px}
+.news td.time {padding:0 10px 0 0; margin:0}
+.news div.time {text-align:left}
+.news h1 {
+	text-align:center; font-size:13px; margin:0 0 12px 0
+}
+.news h1 .toggle {font-family:"Courier New", Courier, monospace}
+
+span.details {font-size:8px}
+p.details {font-size:9px; text-align:left}
+.answer_details {font-size:12px}
+.spacer {clear:both; height:0; width:0}
+
+#user_links {	float:left }
+#user_links.logout {font-size:11px}
+
+a.help {font-size:11px}
+
+body.adventurer img.gfc_thumbnail {float:left; height:100px; width:100px}
+body.adventurer table {float:right; margin:10px 15px 10px 15px}
+body.adventurer table td, body.adventurer table th {border-top:0px solid black; border-left:0; border-bottom:0; border-right:0; text-align:center; padding:5px}
+
+col.land {width:200px; background:#ddf}
+col.cities {width:40px; background:#eef}
+col.soldiers {width:100px; background:#f8f8ff}
+col.treasure_name  {width:40px; background:#ddf}
+
+body.adventurer img.treasure {height:20px; width:20px}
+body.adventurer table a {text-decoration:none}
+body.adventurer tr.total, body.adventurer tr.heading {font-weight:bold; font-size:16px}
+
+col.adventurer {width:100px; background:#eef}
+col.count {width:40px; background:#f8f8ff}
+
+body.leaders table, body.leaders p.table_total {text-align:center; font-size:20px; margin-top:12px; margin-left:auto; margin-right:auto}
+body.leaders table td, body.leaders table th {border:none; padding:8px 24px 8px 24px; vertical-align:middle}
+body.leaders table th {font-size:16px}
+
+body.leaders table img.gfc_thumbnail {height:48px; width:48px}
+
+.in_constructibody.article span.virtue {font-weight:bold}
+on {text-align:center; display:block; border:5px #00f solid; margin:10px 20% 0 20%; padding:5%}
+
+
+body.article .toc, 
+body.article .editsection, 
+body.article .future,
+body.article .definition
+	{display:none}
+
+body.article div.sources {font-size:8px; text-align:left}
+body.article div.navigation p {font-size:8px; display:none}
+
+body.article div.article div.virtue {float:right; width:200px; padding:10px; margin:20px; font-size:18px; text-align:center; font-family:serif}
+
+body.article div.article div.learned  {background:#ff0; border:solid 5px #ff0; font-weight:normal;}
+body.article div.article div.to_learn {background:#f8f8ff; border:dashed 5px #ff0;  font-weight:bold;}
+body.article div.article div.to_learn img {border:none}
+body.article div.article div.to_learn a {text-decoration:none}
+
+body.article span.mfrj {color:#080}
+body.article span.psuq {color:#008}
+
+div.stats span.virtue  {font-weight:bold}
+body.article div.stats span.learned {font-weight:bold; background-color:yellow}
+
+body.city div.virtues {float:left; width:49%}
+body.city div.virtues table td {border:none; padding:0 1em 0 1em}
+body.city div.treasures {float:right; width:49%; border-left:solid 1px blue}
+body.city div.spacer {clear:both; border-top:solid 1pt blue; width:100%}
+
+body.adventurer a.profile {float:left}

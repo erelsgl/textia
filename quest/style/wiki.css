@@ -1,0 +1,11 @@
+.editsection {display:none}
+.shortcut {display:none;}
+#toc { display: none; }
+
+.siteNoticeSmall{display:none;}
+.siteNoticeToggle{display:none;}
+.mw-changeslist-hidden {display:none;}
+div.mw-changeslist-expanded {display:block;}
+span.mw-changeslist-expanded {display:inline !important;visibility:visible !important;}
+
+a.new, #quickbar a.new { color: #CC2200; }
