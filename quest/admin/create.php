@@ -43,21 +43,21 @@ function show_create_page() {
 ## Credentials
 
 ";
-	print "MySQL host [$GLOBALS[db_host]]: "; $db_host = fgets(STDIN);
+	print "MySQL host [$GLOBALS[db_host]]: "; $db_host = trim(fgets(STDIN));
 	$_POST['db_host'] = coalesce($db_host, $GLOBALS['db_host']);
-	print "MySQL root username [$GLOBALS[root_username]]: "; $root_username = fgets(STDIN);
+	print "MySQL root username [$GLOBALS[root_username]]: "; $root_username = trim(fgets(STDIN));
 	$_POST['root_username'] = coalesce($root_username, $GLOBALS['root_username']);
-	print "MySQL root password: "; $root_password = fgets(STDIN);
+	print "MySQL root password: "; $root_password = trim(fgets(STDIN));
 	$_POST['root_password'] = $root_password;
 
 	print "
 ## New database data
 
 ";
-	print "New database name: "; $_POST['db_name'] = fgets(STDIN);
-	print "New user name: "; $_POST['db_user'] = fgets(STDIN);
-	print "New user password: "; $_POST['db_pass'] = fgets(STDIN);
-	print "Drop existing database? [no]: "; $drop_db = fgets(STDIN);
+	print "New database name: "; $_POST['db_name'] = trim(fgets(STDIN));
+	print "New user name: "; $_POST['db_user'] = trim(fgets(STDIN));
+	print "New user password: "; $_POST['db_pass'] = trim(fgets(STDIN));
+	print "Drop existing database? [no]: "; $drop_db = trim(fgets(STDIN));
 	$_POST['drop_db']=($drop_db=='yes'); 
 }
 
