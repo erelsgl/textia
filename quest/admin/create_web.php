@@ -7,14 +7,13 @@
 error_reporting(E_ALL);
 set_time_limit(0);
 
-print "
-# Create a new database for textia
-
-## Requirements
-
-* MySQL 5+
-* PHP 5+
-* PHP-MySQL extension
+print "<h1>Create a new database for textia</h1>\n";
+print "<h2>Requirements</h2>
+<ul>
+	<li>MySQL 5+
+	<li>PHP 5+
+	<li>and PHP-MySQL extension</li>
+</ul>
 ";
 
 $SCRIPT = dirname(__FILE__) . '/../../script';
@@ -24,9 +23,11 @@ require_once("$SCRIPT/sql_backup.php");
 require_once("$SCRIPT/coalesce.php");
 require_once('tables.php');
 
-show_create_page();
-update_create_page();
-
+if (count($_POST)>0) {
+	update_create_page();
+} else {
+	show_create_page();
+}
 
 function show_create_page() {
 	@include_once("db_root_params.php"); // only if it exists
@@ -40,57 +41,43 @@ function show_create_page() {
 	set_coalesce($GLOBALS['db_pass'],'');
 
 	print "
-## Credentials
+	<form method='post'>
+		<h2>Credentials</h2>
+		<p>Database host: <input name='db_host' value='$GLOBALS[db_host]' />
+		<p>MySQL root username: <input name='root_username' value='$GLOBALS[root_username]' />
+		<p>MySQL root password: <input type='password' name='root_password' value='' />
 
-";
-	print "MySQL host [$GLOBALS[db_host]]: "; $db_host = fgets(STDIN);
-	$_POST['db_host'] = coalesce($db_host, $GLOBALS['db_host']);
-	print "MySQL root username [$GLOBALS[root_username]]: "; $root_username = fgets(STDIN);
-	$_POST['root_username'] = coalesce($root_username, $GLOBALS['root_username']);
-	print "MySQL root password: "; $root_password = fgets(STDIN);
-	$_POST['root_password'] = $root_password;
-
-	print "
-## New database data
-
-";
-	print "New database name: "; $_POST['db_name'] = fgets(STDIN);
-	print "New user name: "; $_POST['db_user'] = fgets(STDIN);
-	print "New user password: "; $_POST['db_pass'] = fgets(STDIN);
-	print "Drop existing database? [no]: "; $drop_db = fgets(STDIN);
-	$_POST['drop_db']=($drop_db=='yes'); 
+		<h2>New database data</h2>
+		<p>New database name: <input name='db_name' value='$GLOBALS[db_name]' />
+		<p>New user name: <input name='db_user' value='$GLOBALS[db_user]' />
+		<p>New user password: <input type='password' name='db_pass' value='$GLOBALS[db_pass]' />
+		<p><input type='checkbox' name='drop_db' />Drop existing database
+		<p><input type='submit' name='submit' />
+	</form>
+	";
 }
 
 function update_create_page() {
 	@include_once("db_connect_params.php"); // only if it exists
 
-	print "
-## New database creation
-
-";
-
-	print "* create_database_and_user();
-";	create_database_and_user();
-
-	print "* create_db_connect_params();
-";	create_db_connect_params();
-	
-	print "* require('db_connect.php');
-";	require('db_connect.php');
-
+	print "<h2>New database creation</h2>";
+	print "<p>create_database_and_user();";
+	create_database_and_user();
+	print "<p>create_db_connect_params();";
+	create_db_connect_params();
+	print "<p>require('db_connect.php');";
+	require('db_connect.php');
 	if ($GLOBALS['db_created']) {
-		print "* create_database_tables();
-"; create_database_tables();
+		print "<p>create_database_tables();";
+		create_database_tables();
 	}
-	print "Create complete!
-";
+	print "<p>create complete!</p>\n";
 	
-	print "
-
-## Additional Tasks
-
-* Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.</li>
-* Go to the index page: http://localhost/quest/index.php
+	print "<h2>Additional Tasks</h2>
+	<ol>
+	 <li>Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.</li>
+	 <li>Go to <a href='../index.php'>the index page</a> to start playing!</li>
+	</ol>
 	"; 
 }
 
@@ -108,14 +95,14 @@ function create_database_and_user() {
 		sql_query_or_die("DROP DATABASE IF EXISTS $_POST[db_name]");
 
 	if (sql_database_exists($_POST['db_name'])) {
-		echo "Database $_POST[db_name] already exists - won't create it\n";
+		echo "<p>Database $_POST[db_name] already exists - won't create it</p>\n";
 		$GLOBALS['db_created'] = false;
 	} 	else {
-		echo "Creating database $_POST[db_name]\n";
+		echo "<p>Creating database $_POST[db_name]</p>\n";
 		sql_query_or_die("
 			CREATE DATABASE $_POST[db_name] 
 			CHARACTER SET utf8");
-		sql_query_or_die("SET storage_engine=MYISAM");
+		sql_query_or_die("SET storage_engine=MYISAM"); // TODO: test it!
 		$GLOBALS['db_created'] = true;
 	}
 
@@ -124,6 +111,10 @@ function create_database_and_user() {
 		TO $db_user_quoted IDENTIFIED BY ".quote_all($_POST['db_pass'])." WITH GRANT OPTION");
 	sql_query_or_die("GRANT RELOAD ON *.* 
 		TO $db_user_quoted");
+
+	/* Old version: */ 
+	$socket_query = sql_query_or_die("SHOW VARIABLES LIKE 'socket'");
+    $_POST['db_sock'] = sql_result($socket_query,0,1);
 
 	sql_close($link); // root logs out
 }
