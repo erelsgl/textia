@@ -17,7 +17,8 @@ $source_database = "tora_erel";
 $target_database = "tora_quest";
 
 require_once("tables.php");
-require_once("../../_script/sql.php");
+require "db_connect.php";
+require_once "$SCRIPTFOLDER/sql.php";
 
 $link = sql_connect($db_host, $db_user, $db_pass, false, 0);
 if (!$link)

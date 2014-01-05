@@ -471,7 +471,7 @@ function get_backup_directories() {
 }
 
 function run_backup_site() {
-	$styles = array('/_script/klli.css', '../../_script/klli.css');
+	$styles = array('/script/klli.css', '../../script/klli.css');
 	if (!isset($_GET['to'])) {
 		echo xhtml_header("Backup Syntax", '',
 			$styles, '');

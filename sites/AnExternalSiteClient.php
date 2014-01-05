@@ -3,7 +3,14 @@ $GLOBALS['SITES_THAT_ALLOW_IMPORT_PROFILE'] = array('Facebook','Youtube');
 $GLOBALS['ALL_EXTERNAL_SITES'] = array('Facebook','Youtube');
 
 require_once('AnExternalSiteIdentity.php'); // TODO: move to including files
-require_once(dirname(__FILE__).'/../_script/coalesce.php'); // TODO: move to including files
+
+/** returns $var if it is set; otherwise returns the default value. */
+function coalesce(& $var, $default_value) {
+	if (isset($var))
+		return $var;
+	else
+		return $default_value;
+}
 
 
 /**
@@ -31,9 +38,9 @@ abstract class AnExternalSiteClient {
 
 	public function login_redirect($nextUrl) {
 	    $url = $this->login_url($nextUrl);
-		require_once(dirname(__FILE__).'/../_script/callback.php');
-		//print("<p>redirect to <a href='$url'>$url</a></p>");
-		$GLOBALS['RedirectSystem']->redirect($url);
+		print("<p>redirect to <a href='$url'>$url</a></p>");
+		//require_once(dirname(__FILE__).'/../_script/callback.php');
+		//$GLOBALS['RedirectSystem']->redirect($url);
 	}
 
 

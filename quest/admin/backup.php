@@ -11,9 +11,11 @@ error_reporting(E_ALL);
 set_time_limit(0);
 ini_set("memory_limit","80M");
 
-require_once dirname(__FILE__)."/../../_script/sql_backup.php";
-require_once dirname(__FILE__)."/../../_script/system.php";
-require_once('tables.php');
+require "db_connect.php";
+
+require_once "$SCRIPTFOLDER/sql_backup.php";
+require_once "$SCRIPTFOLDER/system.php";
+require_once "tables.php";
 
 function restore_page() {
 	set_time_limit(0);  // If there is a time limit, the restore might stop at an unstable state!
@@ -27,10 +29,6 @@ function restore_page() {
 	}
 	if ($GLOBALS['configurations']) { // after users, so the tables will exist
 		$GLOBALS['RESTORE_TABLES_NEWER_THAN_THEIR_BACKUPS'] = !empty($_GET['unchanged']); 
-
-		require_once(dirname(__FILE__)."/../../_script/updates.php");
-		run_all_new_updates_in_file(str_replace("admin","updates",dirname(__FILE__)), "todo.txt");
-
 		foreach (array_keys($GLOBALS['CONFIGURATION_TABLES']) as $table)
 			restore_table($table);
 	}
@@ -58,30 +56,7 @@ function backup_page($retest=false) {
 		create_tar_gz($path_to_tar_gz_without_extension, $BACKUP_FILEROOT, isset($_GET['verbose']));
 		$zipfile = str_replace("\\","/","$path_to_tar_gz_without_extension.tar.gz");
 
-		$encrypt_on_server = false;
-		if ($encrypt_on_server && preg_match("|/meezoog.com/|",__FILE__)) {
-			if (!file_exists($zipfile)) {
-				user_error("Couldn't create zipfile $zipfile!", E_USER_WARNING);
-				return;
-			}
-
-			if ($encrypt_on_server) {
-				shell_exec_verbose("mv $zipfile.gpg $zipfile.old.gpg");
-				shell_exec_verbose("gpg  --recipient meezoog@meezoog.com --output $zipfile.gpg --encrypt $zipfile");
-			}
-	
-		    if (!file_exists("$zipfile.gpg")) {
-	            if ($encrypt_on_server) user_error("Couldn't create encrypted zipfile $zipfile.gpg 
-	                    (this is not an error if you run this script from a browser,
-	                    because the apache user doesn't 
-	                    have permissions to the .gnupg folder)", E_USER_WARNING);
-	            print "<p><a href='../_magr/$_GET[dir].tar.gz'>Download the backup file</a></p>\n";
-	            return;
-	    	}
-	    	print "<p><a href='../_magr/$_GET[dir].tar.gz.gpg'>Download the encrypted backup file</a></p>\n";
-		} else {
-		    print "<p><a href='../_magr/$_GET[dir].tar.gz'>Download the backup file</a></p>\n";
-		}
+		print "<p><a href='../_magr/$_GET[dir].tar.gz'>Download the backup file</a></p>\n";
 	}
 }
 
@@ -97,7 +72,5 @@ function compare_page() {
 	sql_backup_compare($GLOBALS['USER_TABLES'], $_GET['dir1'], $_GET['dir2']);
 }
 
-
-require_once('db_connect.php');
 run_backup_site();
 ?>

@@ -547,89 +547,8 @@ function getPendingValidationEmail($internal_userid) {
 		AND validation_code<>'' 
 	", false);
 }
-function getValidationCode($internal_userid, $site, $email) {
-	$internal_userid_int = (int)$internal_userid;
-	$email_quoted = quote_all($email);
-	$site_quoted = quote_all($site);
-	return sql_evaluate("
-		SELECT validation_code
-		FROM user_identities 
-		WHERE userid=$internal_userid_int
-		AND external_site=$site_quoted
-		AND external_userid=$email_quoted;
-	", NULL);
-}
 
 
-
-/**
- * Add a new random email-validation code to the given email of the given user.
- * @see validateEmailByCode 
- * @return the new code 
- */ 
-function addNewValidationCode($internal_userid, $site, $external_userid) {
-	$internal_userid_int = (int)$internal_userid;
-	$external_userid_quoted = quote_all($external_userid);
-	$site_quoted = quote_all($site);
-
-	$CODE_LENGTH = 32;
-	require_once dirname(__FILE__).'/../_script/sql_random.php';
-	for ($i = 0; $i < 100; $i++) {
-		$code = randomkey('user_identities', "validation_code", $CODE_LENGTH);
-		$code_quoted = quote_smart($code);
-		sql_query_or_die("
-			UPDATE IGNORE `user_identities` 
-			SET validation_code=$code_quoted
-			WHERE userid=$internal_userid_int 
-			AND external_site=$site_quoted 
-			AND external_userid=$external_userid_quoted");
-		// Keep generating codes, and try to insert them. if inserted - O.K. if exists, try again.		
-		if (sql_affected_rows() > 0)
-			break;
-	}
-
-	if ($i >= 99)
-		report_error_to_developers("Couldn't not insert the code",E_USER_ERROR);
-
-	return $code;
-}
-
-/**
- * @param int $internal_userid - the user that tries to validate his email
- * @param string $code - the code sent by email (created at )
- * @return the validated email, or NULL if not found.
- * @see addNewValidationCode 
- * @note The validation code is one-time - it is cleared after use! 
- */
-function checkValidationCode($internal_userid, $code) {
-	$internal_userid_int = (int)$internal_userid;
-	$code_quoted = quote_smart($code);
-	$identity_and_userid = sql_evaluate_assoc("
-		SELECT identity_id as `0`, external_userid as `1`
-		FROM user_identities
-		WHERE validation_code=$code_quoted " 
-		//. "AND is_validated=false " - May be used for login-from-email too, when the email is already validated     
-		. " AND userid=$internal_userid_int " // There's an issue with this condition - see TODO in duplicates.pl
-		, NULL);
-
-	if (!$identity_and_userid)
-		return array(NULL,NULL);
-
-	return $identity_and_userid;
-}
-
-function clearValidationCode($internal_userid, $identity_id) {
-	$identity_id_int = (int)$identity_id;
-	$internal_userid_int = (int)$internal_userid;
-
-	sql_query_or_die("
-		UPDATE IGNORE `user_identities` 
-		SET validation_code = NULL,
-		is_validated = true,
-		userid = $internal_userid_int
-		WHERE identity_id = $identity_id_int
-	");
-}
 
 function existingUsersByExternal($site, $allExternalFriends_arr) {
 	$site_quoted = quote_smart($site);

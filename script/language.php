@@ -116,7 +116,7 @@ function current_language_extended_code() {
 
 function stylesheet_by_language_direction($stylesheet) {
 	if (current_language_direction()==='rtl')
-		return "_script/rtl_css.php?file=$stylesheet";
+		return "script/rtl_css.php?file=$stylesheet";
 	else 
 		return "$stylesheet.css";
 }
