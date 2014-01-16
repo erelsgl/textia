@@ -43,10 +43,9 @@ function show_create_page() {
 ## Credentials
 
 ";
-	print "MySQL host [$GLOBALS[db_host]]: "; $db_host = trim(fgets(STDIN));
-	$_POST['db_host'] = coalesce($db_host, $GLOBALS['db_host']);
+	$_POST['db_host'] = $GLOBALS['db_host'];
 	print "MySQL root username [$GLOBALS[root_username]]: "; $root_username = trim(fgets(STDIN));
-	$_POST['root_username'] = coalesce($root_username, $GLOBALS['root_username']);
+	$_POST['root_username'] = $root_username? $root_username: $GLOBALS['root_username'];
 	print "MySQL root password: "; $root_password = trim(fgets(STDIN));
 	$_POST['root_password'] = $root_password;
 
