@@ -100,6 +100,21 @@ function variable_from_get_or_session($name, $default_value=NULL) {
 		return $default_value;
 }
 
+function is_title_valid($title) {
+	return preg_match("/משחק/",$title);
+	// TODO: Check if title exists in Wikisource
+}
+
+function die_unmapped() {
+		print "<meta charset='utf-8'/>
+	<p dir='rtl'>
+	הגעת לאזור לא ממופה.
+	<a href='world.php'>חזרה למפת העולם המוכר</a>
+	<!--a href='http://he.wikisource.org/wiki/קטגוריה:משחקים'>יש להיכנס למשחק מאתר ויקיטקסט</a-->
+	</p>";
+		die;
+}
+
 /**
  * @param string $class_name name of a PHP class.
  * @return If $_GET['title'] is defined - create the given class from the given Wikisource title, put in in the appropriate session variable, and return it. 
@@ -108,9 +123,12 @@ function variable_from_get_or_session($name, $default_value=NULL) {
  */
 function object_from_get_or_session($class_name, $default_title=NULL) {
 	if (isset($_GET['title'])) {  // a wikisource title
-		$object = new $class_name($_GET['title']);
-		//print_r($object);
-		$_SESSION[$class_name] = serialize($object);
+		if (is_title_valid($_GET['title'])) {
+			$object = new $class_name($_GET['title']);
+			$_SESSION[$class_name] = serialize($object);
+		} else {
+			die_unmapped();
+		}
 	} elseif (isset($_SESSION[$class_name])) {
 		if (isset($_SESSION[$class_name."_require"])) {
 			require($_SESSION[$class_name."_require"]); // define necessary classes
@@ -120,13 +138,7 @@ function object_from_get_or_session($class_name, $default_title=NULL) {
 		$object = new $class_name($default_title);
 		$_SESSION[$class_name] = serialize($object);
 	} else {
-		print "<meta charset='utf-8'/>
-	<p dir='rtl'>
-	הגעת לאזור לא ממופה.
-	<a href='world.php'>חזרה למפת העולם המוכר</a>
-	<!--a href='http://he.wikisource.org/wiki/קטגוריה:משחקים'>יש להיכנס למשחק מאתר ויקיטקסט</a-->
-	</p>";
-		die;
+		die_unmapped();
 	}
 
 	return $object;
@@ -186,8 +198,8 @@ function show_html_header($title, $class=NULL, $virtue_learned=NULL, $additional
 		array(/*"$linkroot/../_script/klli.css", */"world.css"),
 		"
 		<script type='text/javascript' src='$linkroot/../_script/elements.js'></script>
-		<script type='text/javascript' src='$linkroot/../_script/jquery.taconite.js'></script>
 		<script type='text/javascript' src='$jquery'></script>
+		<script type='text/javascript' src='$linkroot/../_script/jquery.taconite.js'></script>
 		".$additional_header
 		);
 	if ($logout) {

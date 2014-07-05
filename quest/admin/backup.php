@@ -12,6 +12,8 @@ set_time_limit(0);
 ini_set("memory_limit","80M");
 
 require "db_connect.php";
+print "<p>BACKUP_FILEROOT=".$GLOBALS['BACKUP_FILEROOT'];
+print "<p>BACKUP_WHATSNEW_FILEROOT=".$GLOBALS['BACKUP_WHATSNEW_FILEROOT'];
 
 require_once "$SCRIPTFOLDER/sql_backup.php";
 require_once "$SCRIPTFOLDER/system.php";

@@ -120,9 +120,6 @@ function create_database_and_user() {
 }
 
 function create_db_connect_params() {
-	$DONT_MAIL_JUST_LOG =  (isset($_POST['DONT_MAIL_JUST_LOG'])? "true": "false");
-	$USE_HTTPS_FOR_LOGIN = (isset($_POST['USE_HTTPS_FOR_LOGIN'])? "true": "false");
-	$ALTERNATIVE_SESSION_SAVE_PATH = (isset($_POST['ALTERNATIVE_SESSION_SAVE_PATH'])? "dirname(__FILE__) . '/../../../session'": "NULL");
 	file_put_contents(dirname(__FILE__)."/db_connect_params.php", "<?php 
 /**
  * @file parameters for db_connect.php and config.php
@@ -137,9 +134,6 @@ function create_db_connect_params() {
 \$GLOBALS['BACKUP_FILEROOT'] = str_replace('admin','_magr',dirname(__FILE__));
 \$GLOBALS['BACKUP_WHATSNEW_FILEROOT'] = NULL; // dirname(__FILE__) . '/../../whatsnew/zp/_magr';
 \$GLOBALS['CREATE_DAILY_BACKUPS'] = FALSE;
-\$GLOBALS['DONT_MAIL_JUST_LOG'] = $DONT_MAIL_JUST_LOG;  // change to true for localhost
-\$GLOBALS['USE_HTTPS_FOR_LOGIN'] = $USE_HTTPS_FOR_LOGIN;  // change to false for localhost if you dont have ssleay
-\$GLOBALS['ALTERNATIVE_SESSION_SAVE_PATH'] = $ALTERNATIVE_SESSION_SAVE_PATH;
 ?".">")  /* put dirname inside the ""! */
 or die ("Can't create db_connect_params");
 

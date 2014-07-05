@@ -32,8 +32,6 @@ $GLOBALS['USER_TABLES'] = array(
  * key = table name. value = array of key fields. 
  */
 $GLOBALS['CONFIGURATION_TABLES'] = array(
-		'wikisource_cache' => array("title"),
-		'wikisource_plaintext_cache' => array("title"),
 		'wikisource_question_index' => array("id"),
 		'table_editor_cfg' => array("table_name","field_name","param_type")
 		);
@@ -44,6 +42,8 @@ $GLOBALS['CONFIGURATION_TABLES'] = array(
  * key = table name. value = array of key fields. 
  */
 $GLOBALS['LOG_TABLES'] = array(
+		'wikisource_plaintext_cache' => array("title"),
+		'wikisource_cache' => array("title"),
 		'gfc_users_log' => array(),
 		);
 

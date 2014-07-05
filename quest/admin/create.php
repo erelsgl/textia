@@ -21,6 +21,7 @@ $SCRIPT = dirname(__FILE__) . '/../../script';
 	
 require_once("$SCRIPT/sql.php");
 require_once("$SCRIPT/sql_backup.php");
+require_once("$SCRIPT/mkpath.php");
 require_once("$SCRIPT/coalesce.php");
 require_once('tables.php');
 
@@ -128,9 +129,11 @@ function create_database_and_user() {
 }
 
 function create_db_connect_params() {
-	$DONT_MAIL_JUST_LOG =  (isset($_POST['DONT_MAIL_JUST_LOG'])? "true": "false");
-	$USE_HTTPS_FOR_LOGIN = (isset($_POST['USE_HTTPS_FOR_LOGIN'])? "true": "false");
-	$ALTERNATIVE_SESSION_SAVE_PATH = (isset($_POST['ALTERNATIVE_SESSION_SAVE_PATH'])? "dirname(__FILE__) . '/../../../session'": "NULL");
+	$BACKUP_FILEROOT = str_replace('admin','backup',dirname(__FILE__));
+	$BACKUP_WHATSNEW_FILEROOT = dirname(__FILE__) . '/../../../whatsnew/textia/backup';
+	mkpath($BACKUP_FILEROOT);
+	mkpath($BACKUP_WHATSNEW_FILEROOT);
+	
 	file_put_contents(dirname(__FILE__)."/db_connect_params.php", "<?php 
 /**
  * @file parameters for db_connect.php and config.php
@@ -142,12 +145,9 @@ function create_db_connect_params() {
 \$GLOBALS['db_pass'] = \$db_pass = '$_POST[db_pass]';
 \$GLOBALS['db_name'] = \$db_name = '$_POST[db_name]';
 \$GLOBALS['db_sock'] = '$_POST[db_sock]';
-\$GLOBALS['BACKUP_FILEROOT'] = str_replace('admin','_magr',dirname(__FILE__));
-\$GLOBALS['BACKUP_WHATSNEW_FILEROOT'] = NULL; // dirname(__FILE__) . '/../../whatsnew/zp/_magr';
-\$GLOBALS['CREATE_DAILY_BACKUPS'] = FALSE;
-\$GLOBALS['DONT_MAIL_JUST_LOG'] = $DONT_MAIL_JUST_LOG;  // change to true for localhost
-\$GLOBALS['USE_HTTPS_FOR_LOGIN'] = $USE_HTTPS_FOR_LOGIN;  // change to false for localhost if you dont have ssleay
-\$GLOBALS['ALTERNATIVE_SESSION_SAVE_PATH'] = $ALTERNATIVE_SESSION_SAVE_PATH;
+\$GLOBALS['BACKUP_FILEROOT'] = '$BACKUP_FILEROOT';
+\$GLOBALS['BACKUP_WHATSNEW_FILEROOT'] = '$BACKUP_WHATSNEW_FILEROOT';
+\$GLOBALS['CREATE_DAILY_BACKUPS'] = false;
 ?".">")  /* put dirname inside the ""! */
 or die ("Can't create db_connect_params");
 

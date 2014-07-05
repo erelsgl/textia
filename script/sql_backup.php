@@ -44,8 +44,9 @@ function backup_table($table_name, $file_name=NULL) {
 
 	if ($GLOBALS['CREATE_BACKUP_DIRECTORY']) {
 		mkpath ($BACKUP_FILEROOT);
-		if ($BACKUP_WHATSNEW_FILEROOT) 
+		if ($BACKUP_WHATSNEW_FILEROOT) {
 			mkpath ($BACKUP_WHATSNEW_FILEROOT);
+		}
 	}
 
 	if (!$file_name)
