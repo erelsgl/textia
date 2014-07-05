@@ -91,7 +91,8 @@ function update_create_page() {
 
 * Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.</li>
 * Go to the index page: http://localhost/quest/index.php
-	"; 
+
+";
 }
 
 
@@ -169,12 +170,12 @@ function create_database_tables() {
 
 	/* Create all tables before restoring - to use the most up to date definition */
 	foreach (array_keys($GLOBALS['ALL_TABLES']) as $table)
-		sql_queries_or_die(file_get_contents("$table.sql"));
+		sql_queries_or_die(file_get_contents(dirname(__FILE__)."/$table.sql"));
 			# Warning: table_editor_cfg.sql does not exist!
 
 	// restore configuration tables from the general dir:
 	$GLOBALS['BACKUP_FILEROOT'] = dirname(__FILE__) . "/../_magr";
-	
+
 	print "<h1>Restoring configuration tables</h1>\n";
 	foreach (array_keys($GLOBALS['CONFIGURATION_TABLES']) as $table)
 		restore_table($table);
