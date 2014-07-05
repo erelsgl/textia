@@ -23,19 +23,19 @@ require_once("$SCRIPT/sql.php");
 require_once("$SCRIPT/sql_backup.php");
 require_once("$SCRIPT/mkpath.php");
 require_once("$SCRIPT/coalesce.php");
-require_once('tables.php');
+require_once(dirname(__FILE__) . "/tables.php");
 
 show_create_page();
 update_create_page();
 
 
 function show_create_page() {
-	@include_once("db_root_params.php"); // only if it exists
+	@include_once(dirname(__FILE__) . "/db_root_params.php"); // only if it exists
+	@include_once(dirname(__FILE__) . "/db_connect_params.php"); // only if it exists
 	set_coalesce($GLOBALS['db_host'],'localhost');
 	set_coalesce($GLOBALS['root_username'],coalesce($GLOBALS['db_user'],'root'));
 	set_coalesce($GLOBALS['root_password'],coalesce($GLOBALS['db_pass'],''));
 
-	@include_once("db_connect_params.php"); // only if it exists
 	set_coalesce($GLOBALS['db_name'],'');
 	set_coalesce($GLOBALS['db_user'],'');
 	set_coalesce($GLOBALS['db_pass'],'');
