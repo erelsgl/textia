@@ -11,11 +11,19 @@ print "
 # Create a new database for textia
 
 ## Requirements
-
+		
+* Apache 2+
 * MySQL 5+
 * PHP 5+
 * PHP-MySQL extension
+* PHP CURL module
 ";
+
+if (!function_exists("mysql_query"))
+	die("Textia requires MySQL and PHP-MySQL extension, but they are not installed!");
+if (!function_exists("curl_init"))
+	die("Textia requires CURL and PHP-CURL module, but they are not installed!");
+
 
 $SCRIPT = dirname(__FILE__) . '/../../script';
 	

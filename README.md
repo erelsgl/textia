@@ -6,8 +6,10 @@ This is a **multi-player persistent browser-based strategy game**. The players c
 
 ## Requirements
 * Apache 2+
-* PHP 5+
 * MySQL 5+
+* PHP 5+
+* PHP-MySQL extension
+* PHP CURL module
 
 ## Installation
 * Clone the repository.
