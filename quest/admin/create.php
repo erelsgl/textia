@@ -20,9 +20,9 @@ print "
 ";
 
 if (!function_exists("mysql_query"))
-	die("Textia requires MySQL and PHP-MySQL extension, but they are not installed!");
+	die("Textia requires MySQL and PHP-MySQL extension, but they are not installed!\n");
 if (!function_exists("curl_init"))
-	die("Textia requires CURL and PHP-CURL module, but they are not installed!");
+	die("Textia requires CURL and PHP-CURL module, but they are not installed!\n");
 
 
 $SCRIPT = dirname(__FILE__) . '/../../script';

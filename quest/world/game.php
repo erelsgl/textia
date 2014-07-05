@@ -101,7 +101,7 @@ function variable_from_get_or_session($name, $default_value=NULL) {
 }
 
 function is_title_valid($title) {
-	return preg_match("/משחק/",$title);
+	return preg_match("/משחק/u",$title);
 	// TODO: Check if title exists in Wikisource
 }
 
@@ -123,8 +123,11 @@ function die_unmapped() {
  */
 function object_from_get_or_session($class_name, $default_title=NULL) {
 	if (isset($_GET['title'])) {  // a wikisource title
-		if (is_title_valid($_GET['title'])) {
-			$object = new $class_name($_GET['title']);
+		$title = $_GET['title'];
+		//$is_title_valid = ($class_name=='World'||$class_name=='Land'? is_title_valid($title): true);
+		$is_title_valid = true; // doesn't work
+		if ($is_title_valid) {
+			$object = new $class_name($title);
 			$_SESSION[$class_name] = serialize($object);
 		} else {
 			die_unmapped();
