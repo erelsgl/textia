@@ -12,12 +12,15 @@ This is a **multi-player persistent browser-based strategy game**. The players c
 ## Installation
 * Clone the repository.
 * In your Apache2 configuration, create an alias "/quest" that points to the "quest" folder. This can be done, for example, with the following Linux command:
-	sudo ln -s <full-path-to-quest-folder> /var/www/quest
+
+	sudo ln -s [full-path-to-quest-folder] /var/www/quest
+
 * Run the create script:
+
 	php quest/admin/create.php
+	
 * Enter the root username and password of your MySQL installation.
 * Select a database name, username and password for the new database.
-* Submit.
 
 ## Play
 * Go to http://localhost/quest

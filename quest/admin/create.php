@@ -31,11 +31,11 @@ update_create_page();
 
 function show_create_page() {
 	@include_once(dirname(__FILE__) . "/db_root_params.php"); // only if it exists
-	@include_once(dirname(__FILE__) . "/db_connect_params.php"); // only if it exists
 	set_coalesce($GLOBALS['db_host'],'localhost');
 	set_coalesce($GLOBALS['root_username'],coalesce($GLOBALS['db_user'],'root'));
 	set_coalesce($GLOBALS['root_password'],coalesce($GLOBALS['db_pass'],''));
 
+	@include_once(dirname(__FILE__) . "/db_connect_params.php"); // only if it exists
 	set_coalesce($GLOBALS['db_name'],'');
 	set_coalesce($GLOBALS['db_user'],'');
 	set_coalesce($GLOBALS['db_pass'],'');
