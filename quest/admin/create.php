@@ -44,7 +44,7 @@ function show_create_page() {
 	set_coalesce($GLOBALS['root_password'],coalesce($GLOBALS['db_pass'],''));
 
 	@include_once(dirname(__FILE__) . "/db_connect_params.php"); // only if it exists
-	set_coalesce($GLOBALS['hostname'], (shell_exec('hostname -I') or $GLOBALS['hostname']='localhost'));
+	set_coalesce($GLOBALS['hostname'], shell_exec('hostname -I')?:'localhost');
 	set_coalesce($GLOBALS['db_name'], coalesce($GLOBALS['db_name'],''));
 	set_coalesce($GLOBALS['db_user'], coalesce($GLOBALS['db_user'],''));
 	set_coalesce($GLOBALS['db_pass'], coalesce($GLOBALS['db_pass'],''));
