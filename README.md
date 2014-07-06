@@ -28,5 +28,5 @@ This is a **multi-player persistent browser-based strategy game**. The players c
 * Go to http://localhost/quest
 
 ## TODO
-* Facebook login support used to work, but now it doesn't. This requires someone that knows the details of the new Facebook API.
+* Login with Google and Facebook don't work anymore. This requires someone that knows the details of the new login APIs.
 * The "virtue quest" currently works in a small number of cities, and its quality is insufficient. This requires more thinking about the best way to implement. 
