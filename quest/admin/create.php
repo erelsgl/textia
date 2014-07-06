@@ -66,11 +66,14 @@ function show_create_page() {
 ## New database data
 
 ";
-	print "New database name: "; $_POST['db_name'] = trim(fgets(STDIN));
-	print "New user name: "; $_POST['db_user'] = trim(fgets(STDIN));
-	print "New user password: "; $_POST['db_pass'] = trim(fgets(STDIN));
-	print "Drop existing database? [no]: "; $drop_db = trim(fgets(STDIN));
-	$_POST['drop_db']=($drop_db=='yes'); 
+	print "New database name [$GLOBALS[db_name]]: "; $db_name = trim(fgets(STDIN));
+	$_POST['db_name'] = $db_name? $db_name: $GLOBALS['db_name'];
+	print "New user name [$GLOBALS[db_user]]: "; $db_user = trim(fgets(STDIN));
+	$_POST['db_user'] = $db_user? $db_user: $GLOBALS['db_user'];
+	print "New user password [$GLOBALS[db_pass]]: "; $db_pass = trim(fgets(STDIN));
+	$_POST['db_pass'] = $db_pass? $db_pass: $GLOBALS['db_pass'];
+	print "Drop existing database if it exists? [no]: "; $drop_db = trim(fgets(STDIN));
+	$_POST['drop_db']=($drop_db=='yes');
 }
 
 function update_create_page() {
