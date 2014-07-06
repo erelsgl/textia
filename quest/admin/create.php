@@ -104,8 +104,9 @@ function update_create_page() {
 
 ## Additional Tasks
 
-* Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.</li>
-* Start playing at http://$_POST[hostname]/quest/index.php
+* Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.
+* Create a link named 'quest' in /var/www to the 'textia/quest' folder.
+* Start playing at http://$_POST[hostname]/quest
 
 ";
 }
