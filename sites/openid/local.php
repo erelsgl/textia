@@ -48,13 +48,14 @@ function google_attributes($login, $logout, $followup) {
 		$attributes = $_SESSION['openid'];
 	} else {
 		//print "<p>lightopenid</p>\n";
-		$openid = new LightOpenID($GLOBALS['hostname']);
+		$openid_realm = (empty($GLOBALS['is_local'])? "tora.us.fm": "localhost");
+		$openid = new LightOpenID($openid_realm);
 		if(!$openid->mode) {
 			//print "<br>no mode\n";
 			if ($login) {
 				$openid->identity = 'https://www.google.com/accounts/o8/id';
 				$openid->required = array('namePerson', 'namePerson/first', 'namePerson/full', 'namePerson/last', 'namePerson/friendly', 'contact/email');
-				$openid->returnUrl = $openid->realm . $openid_clean_link;
+				$openid->returnUrl = "http://" . $GLOBALS['hostname'] . $openid_clean_link;
 				header('Location: ' . $openid->authUrl());
 			}
 		} elseif($openid->mode == 'cancel') {
