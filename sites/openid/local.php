@@ -48,7 +48,7 @@ function google_attributes($login, $logout, $followup) {
 		$attributes = $_SESSION['openid'];
 	} else {
 		//print "<p>lightopenid</p>\n";
-		$openid_realm = ($hostname=="localhost"? "localhost": "tora.us.fm");
+		$openid_realm = $hostname; //($hostname=="localhost"? "localhost": "tora.us.fm");
 		$openid = new LightOpenID($openid_realm);
 		if(!$openid->mode) {
 			//print "<br>no mode\n";
