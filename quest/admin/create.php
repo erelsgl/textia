@@ -105,7 +105,7 @@ function update_create_page() {
 ## Additional Tasks
 
 * Make the script 'admin/soldiers_forget_loyalty.php' a weekly cron job.</li>
-* Go to the index page: http://localhost/quest/index.php
+* Start playing at http://$_POST[hostname]/quest/index.php
 
 ";
 }

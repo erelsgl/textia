@@ -56,7 +56,7 @@ function google_attributes($login, $logout, $followup) {
 				$openid->required = array('namePerson', 'namePerson/first', 'namePerson/full', 'namePerson/last', 'namePerson/friendly', 'contact/email');
 				$openid->returnUrl = $openid->realm . $openid_clean_link;
 				header('Location: ' . $openid->authUrl());
-+		} elseif($openid->mode == 'cancel') {
+		} elseif($openid->mode == 'cancel') {
 			echo "<p>User has canceled authentication.</p>\n";
 		} else {
 			//print "<br>mode\n";
