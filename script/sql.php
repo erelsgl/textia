@@ -9,7 +9,7 @@
  *	"mssql" (see mssql.php)
  *
  * @date 2006-06-24 
- * @author Rent a Brain - http://tora.us.fm/rentabrain
+ * @author Erel Segal-Halevi - http://tora.us.fm
  */
 
 if (!isset($GLOBALS['DATABASE_TYPE']))
@@ -616,7 +616,6 @@ $GLOBALS['NULL_VALUE_REPLACEMENT'] = "";
 /**
  * returns a HTML table from a query resource with shorter text fields
  *
- * @author      Erel Segal (http://tora.us.fm/erelsgl)
  * @param       $result    The result resource of an sql_query; OR a string with a SELECT query.
  * @param       $maxlength    The maximum number of chars per field. Longer values will be truncated and appended with "...".
  * @param       $rows_between_headers  The function will insert a copy of the header row between this number of table rows (useful for long tables).
@@ -685,7 +684,6 @@ function sql_shorter_table($result, $maxlength=1000, $rows_between_headers=10000
 /**
  * returns a Tab-seperated-values table from a query resource
  *
- * @author      Erel Segal (http://tora.us.fm/erelsgl)
  * @param       $result    The result of a sql_query
  * @return      string with all rows (seperated by \\n) and fields (Seperated by \\t). escaped by \\.
  */
@@ -745,7 +743,6 @@ $GLOBALS['NEWLINE_REPLACEMENT'] = "\\\n";
 /**
  * Prints a value in one column against the values in two other columns.
  *
- * @author      Erel Segal (http://tora.us.fm/erelsgl)
  * @param       array    $result         The result of a sql_query
  * @param       string   $colfield       Name of field to put in the table columns
  * @param       string   $rowfield       Name of field to put in the table rows

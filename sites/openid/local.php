@@ -3,13 +3,13 @@
  * Local adaptation of OpenID library
  */
 
-global $OPENID_DOMAIN, $openid_clean_link, $openid_login_link, $openid_logout_link;
+global $openid_clean_link, $openid_login_link, $openid_logout_link;
 require_once(dirname(__FILE__)."/lightopenid/openid.php");
-$OPENID_DOMAIN = ($GLOBALS['is_local']? "localhost": "tora.us.fm");
+
 $query_string = empty($_SERVER['QUERY_STRING'])? "":
 	preg_replace("/&?openid[^&]*/","",preg_replace("/&?to=[^&]*/","",$_SERVER['QUERY_STRING']));
 if (!$query_string) {
-	$openid_clean_link = "$_SERVER[PHP_SELF]";
+	$openid_clean_link = "$_SERVER[PHP_SELF]";  // relative to the openid realm
 	$openid_login_link = "$openid_clean_link?to=login";
 	$openid_logout_link = "$openid_clean_link?to=logout";
 } else {
@@ -38,7 +38,7 @@ function empty_attributes() {
 }
 
 function google_attributes($login, $logout, $followup) {
-	global $OPENID_DOMAIN, $openid_clean_link, $current_time_quoted;
+	global $openid_clean_link, $current_time_quoted;
 	$attributes = empty_attributes();
 	if ($logout) {
 		//print "<p>logout</p>\n";
@@ -48,7 +48,7 @@ function google_attributes($login, $logout, $followup) {
 		$attributes = $_SESSION['openid'];
 	} else {
 		//print "<p>lightopenid</p>\n";
-		$openid = new LightOpenID($OPENID_DOMAIN);
+		$openid = new LightOpenID($GLOBALS['hostname']);
 		if(!$openid->mode) {
 			//print "<br>no mode\n";
 			if ($login) {
@@ -56,8 +56,7 @@ function google_attributes($login, $logout, $followup) {
 				$openid->required = array('namePerson', 'namePerson/first', 'namePerson/full', 'namePerson/last', 'namePerson/friendly', 'contact/email');
 				$openid->returnUrl = $openid->realm . $openid_clean_link;
 				header('Location: ' . $openid->authUrl());
-			}
-		} elseif($openid->mode == 'cancel') {
++		} elseif($openid->mode == 'cancel') {
 			echo "<p>User has canceled authentication.</p>\n";
 		} else {
 			//print "<br>mode\n";

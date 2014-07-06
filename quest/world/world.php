@@ -1,7 +1,7 @@
 <?php
 /** קידוד אחיד
  * @file world.php - defines the World of Textia - contains Lands that contain Cities that contain various adventures (Soldires, Virtue quests, Treasure hunts).
- * @author Erel Segal http://tora.us.fm
+ * @author Erel Segal-Halevi http://tora.us.fm
  * @date 2009-04-13
  * @copyright GPL 
  */
