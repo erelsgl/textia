@@ -6,6 +6,7 @@
  * @copyright GPL 
  */
 require_once('game.php');
+error_reporting(E_ALL);
 
 function news_box($id, $news, $heading, $start_minimized=FALSE, $javascript=TRUE, $more_url=NULL) {
 	if (!$news) return $news;
@@ -237,7 +238,7 @@ if (basename(__FILE__)==basename($_SERVER['PHP_SELF'])) {
 	$main_land = coalesce($_GET['land'],NULL);
 	$item_count = min(20,coalesce($_GET['count'],10));
 	if ($format==='taconite') {
-		require_once("GLOBALS[SCRIPTFOLDER]/taconite.php");
+		require_once("$GLOBALS[SCRIPTFOLDER]/taconite.php");
 		print jquery_taconite_header($HTML_ENCODING)."
 		<replaceContent select=\"#whatsnew_textia_news\">
 		".news($item_count,$main_land,"world",/*$start_minimized=*/FALSE,/*javascript=*/FALSE,/*more=*/TRUE)."
@@ -246,6 +247,10 @@ if (basename(__FILE__)==basename($_SERVER['PHP_SELF'])) {
 		".leaders($main_land,"world",/*$start_minimized=*/FALSE,/*javascript=*/FALSE)."
 		</replaceContent>
 		".jquery_taconite_footer();
+	} else if ($format=='short') {
+		$news_content = news($item_count,$main_land,"world",/*$start_minimized=*/FALSE,/*javascript=*/FALSE,/*more=*/TRUE);
+		$news_content .= leaders($main_land,"world",/*$start_minimized=*/FALSE,/*javascript=*/FALSE);
+		print $news_content;
 	} else {
 		show_html_header(static_text('news'));
 		print news_and_leaders(
