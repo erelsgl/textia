@@ -260,8 +260,8 @@ function restore_table($table_name, $path_from_root_to_definition=NULL) {
 		// trim the last newline in the last field:
 		$field_names = sql_field_names($table_name);
 		$last_field_name = array_pop($field_names);
-		sql_query_or_print_error("UPDATE $table_name SET `$last_field_name`=LEFT(`$last_field_name`,LENGTH(`$last_field_name`)-1) WHERE RIGHT(`$last_field_name`,1) IN ('\n','\r')");
-	}
+		for ($i=1;$i<=2;++$i) sql_query_or_print_error("UPDATE $table_name SET `$last_field_name`=LEFT(`$last_field_name`,LENGTH(`$last_field_name`)-1) WHERE RIGHT(`$last_field_name`,1) IN ('\n','\r')");
+			}
 	else {
 		echo "<p>no table definition file $path_from_root_to_definition - skipping</p>\n";
 	}

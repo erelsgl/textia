@@ -38,7 +38,7 @@ function empty_attributes() {
 }
 
 function google_attributes($login, $logout, $followup) {
-	global $hostname, $openid_clean_link, $current_time_quoted;
+	global $openid_realm, $openid_clean_link, $current_time_quoted;
 	$attributes = empty_attributes();
 	if ($logout) {
 		//print "<p>logout</p>\n";
@@ -47,15 +47,13 @@ function google_attributes($login, $logout, $followup) {
 		//print "<p>session</p>\n";
 		$attributes = $_SESSION['openid'];
 	} else {
-		//print "<p>lightopenid</p>\n";
-		$openid_realm = $hostname; //($hostname=="localhost"? "localhost": "tora.us.fm");
 		$openid = new LightOpenID($openid_realm);
 		if(!$openid->mode) {
 			//print "<br>no mode\n";
 			if ($login) {
 				$openid->identity = 'https://www.google.com/accounts/o8/id';
 				$openid->required = array('namePerson', 'namePerson/first', 'namePerson/full', 'namePerson/last', 'namePerson/friendly', 'contact/email');
-				$openid->returnUrl = "http://$hostname$openid_clean_link";
+				$openid->returnUrl = "http://$openid_realm$openid_clean_link";
 				header('Location: ' . $openid->authUrl());
 			}
 		} elseif($openid->mode == 'cancel') {

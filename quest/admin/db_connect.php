@@ -12,4 +12,5 @@ $mysql_options = MYSQL_CLIENT_INTERACTIVE; // Allow interactive_timeout seconds 
 $GLOBALS['link'] = sql_connect_and_select($db_host, $db_name, $db_user, $db_pass, false, $mysql_options);
 
 sql_set_charset('utf8');
+sql_query_or_die("SET storage_engine=MYISAM");
 ?>
