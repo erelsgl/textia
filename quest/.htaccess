@@ -9,6 +9,7 @@ deny from all
 
 # source paths are relative to the current directory
 RewriteEngine ON
+RewriteOptions inherit
 RewriteRule ^wiki/(.*)$    http://tora.us.fm/quest/world/article.php?title=$1 [R]
 RewriteRule ^world/?$  http://tora.us.fm/quest/world/world.php?title=משחק:טקסטיה [R]
 RewriteRule ^facebook/?$  http://tora.us.fm/quest/facebook/world.php?title=משחק:טקסטיה [R]
