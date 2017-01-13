@@ -31,7 +31,7 @@ class MediawikiClient {
 		var $client;
 
 		function MediawikiClient($domain="he.wikisource.org") {
-				$this->api_url = "https://$domain/w/api.php";
+				$this->api_url = "http://$domain/w/api.php";
 		}
 
 		/**
@@ -76,7 +76,7 @@ class MediawikiClient {
 		*/
 		function page_timestamp($title) {
 				if (preg_match("/http:/",$title))
-					return 0;  // probably spam
+					return;  // probably spam
 				$title_encoded = urlencode($title);
 				$url = $this->api_url. "?action=query&prop=revisions&rvprop=timestamp&titles=$title_encoded&redirects=1&format=xml";
 				$contents = get_url_with_agent($url);
@@ -277,11 +277,11 @@ function getNodeList($url, $xpath_query, $tag_name=null) {
 	}
 
 	$DEBUG=false;
-	if ($DEBUG) print("<p dir='ltr'>getNodeList($url, $xpath_query, $tag_name)</p>\n");
+	if ($DEBUG) print("<p dir='ltr'>getNodeList($url, $xpath_query, $tag_name)</p>");
 	$contents = get_url_with_agent($url);
 	if ($DEBUG) print("<p class='contents' dir='rtl'>$contents</p>\n");
 	if (!$contents) {
-		user_error("<p dir='ltr'>empty reply from $url</p>\n");
+		user_error("<p dir='ltr'>empty reply from $url</p>");
 		return array();
 	}
 	if (strpos($contents, "<title>Wikimedia Error</title>")) {
@@ -340,6 +340,7 @@ function getValues($nodeList) {
 		$values[] = $node->nodeValue;
 	return $values;
 }
+
 
 
 /* UNIT TEST */
