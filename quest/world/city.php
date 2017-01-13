@@ -4,7 +4,7 @@
  * @see land.php::land_definition_to_cities() - the main function that converts the definition in Wikisource to our structures
  * @author Erel Segal http://tora.us.fm
  * @date 2009-04-14
- * @copyright GPL 
+ * @copyright GPL
  */
 require_once('game.php');
 
@@ -75,7 +75,7 @@ class City {
 	}
 
 	/**
-	 * @return array('name', 'image', 'regexps') 
+	 * @return array('name', 'image', 'regexps')
 	 */
 	function virtue_data($virtue) {
 		$virtues = $this->data("virtues");
@@ -227,7 +227,8 @@ class City {
 	function play_conquest() {
 		$loyalties = $this->loyalties_to_all_users();
 		$this->get_ruler_data();
-		$city_image_html = city_image_html(coalesce($this->data("image"),NULL),$this->title_for_display);
+		$image = $this->data("image");
+		$city_image_html = city_image_html(coalesce($image,NULL), $this->title_for_display);
 		$ruler_image_html = city_ruler_image_html($this->ruler_data);
 		print "
 		$ruler_image_html
@@ -271,7 +272,7 @@ class City {
 	}
 
 	function play_treasures($treasures) {
-		global $current_userid_quoted; 
+		global $current_userid_quoted;
 
 		if ($this->data("אוצרות")=='לא'
 		 ||!$this->data("subsources"))
@@ -286,7 +287,7 @@ class City {
 			$treasures_not_owned_html = '';
 
 			$treasures_owned = sql_evaluate_array_key_value("
-				SELECT treasure,1 
+				SELECT treasure,1
 				FROM user_treasure
 				WHERE userid=$current_userid_quoted
 				AND land={$this->land_quoted}
@@ -321,7 +322,7 @@ class City {
 	}
 
 	function play_virtues() {
-		global $land, $current_userid_quoted; 
+		global $land, $current_userid_quoted;
 
 		$virtues = $this->data("virtues");
 		if (!$virtues)
