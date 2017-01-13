@@ -3,7 +3,7 @@
  * @file game.php - basic game-related routines and variables
  * @author Erel Segal http://tora.us.fm
  * @date 2009-04-13
- * @copyright GPL 
+ * @copyright GPL
  */
 
 error_reporting(E_ALL);
@@ -47,8 +47,8 @@ $login = isset($_GET['to']) && $_GET['to']=='login';
 $logout = isset($_GET['to']) && $_GET['to']=='logout';
 @$link_without_logout =  "$_SERVER[PHP_SELF]?".preg_replace("/&?to=[^&]*/","",$_SERVER['QUERY_STRING']); // ignore error when query_string not defined
 
-$base_for_links = (isset($_SERVER['PHP_SELF'])? 
-		dirname($_SERVER['PHP_SELF']): 
+$base_for_links = (isset($_SERVER['PHP_SELF'])?
+		dirname($_SERVER['PHP_SELF']):
 		"/quest/world");
 
 if (!isset($is_facebook))
@@ -64,7 +64,7 @@ if (empty($current_user_details)) {
 
 		show_html_header('logout');
 		print "<p dir='rtl'>
-			התנתקת מטקסטיה. 
+			התנתקת מטקסטיה.
 			<a href='$link_without_logout'>
 			חזרה לטקסטיה
 			</a>
@@ -74,8 +74,16 @@ if (empty($current_user_details)) {
 		die;
 
 	} else {
-		$current_user_details = read_current_user_details();
-		$current_userid = $current_user_details['id'];
+		if ($login) {
+			print "<p dir='rtl'>גוגל הפסיקו את התמיכה בתהליך ההתחברות, ולכן כרגע אי אפשר להתחבר. אם אתם רוצים לעזור לנו לתקן, אנא צרו קשר עם אראל
+			 בדואל erelsgl@gmail.com.</p>";
+			//print "<p dir='ltr'>Google login stopped working because Google stopped supporting OpenID 2.0. If you want to help us fix the login system, please contact Erel at erelsgl@gmail.com.</p>";
+
+			$current_userid = NULL;
+		} else {
+			$current_user_details = read_current_user_details();
+			$current_userid = $current_user_details['id'];
+		}
 	}
 	$current_userid_quoted = quote_all($current_userid);
 }
@@ -117,8 +125,8 @@ function die_unmapped() {
 
 /**
  * @param string $class_name name of a PHP class.
- * @return If $_GET['title'] is defined - create the given class from the given Wikisource title, put in in the appropriate session variable, and return it. 
- *  Otherwise, if it in the $_SESSION[$class_name], return it. 
+ * @return If $_GET['title'] is defined - create the given class from the given Wikisource title, put in in the appropriate session variable, and return it.
+ *  Otherwise, if it in the $_SESSION[$class_name], return it.
  *  Otherwise, return NULL.
  */
 function object_from_get_or_session($class_name, $default_title=NULL) {
@@ -225,12 +233,12 @@ function show_html_header($title, $class=NULL, $virtue_learned=NULL, $additional
 
 function show_html_footer($switch_view=TRUE) {
 	global $practice, $logout, $link_without_logout, $current_userid, $is_facebook;
-	$switch_view_html = ($switch_view? 
-		"תצוגה: ". ($practice? 
+	$switch_view_html = ($switch_view?
+		"תצוגה: ". ($practice?
 			"<a href='?practice=0'>משחק</a> / <b>חידון</b>":
 			"<b>משחק</b> / <a href='?practice=1'>חידון</a>"):
 		"");
-	
+
 	print "
 		</div><!--world-->
 		<p class='details'>$switch_view_html</p>
@@ -248,17 +256,17 @@ function title_for_display($title_in_wikisource) {
 
 /**
  * @return string that describes who rules the city. used in both city view and land view.
- */ 
+ */
 function city_ruler_string($user_that_rules_this_city) {
 	return (
 		$user_that_rules_this_city=='YOU'? " בשליטתך": (
-		$user_that_rules_this_city? " בשליטת ".$user_that_rules_this_city: 
+		$user_that_rules_this_city? " בשליטת ".$user_that_rules_this_city:
 		" ללא שליט"));
 }
 
 function city_ruler_explanation_string($user_that_rules_this_city) {
 	return (
-		$user_that_rules_this_city=='YOU'? "העיר תישאר בשליטתך עד ששחקן אחר יעביר את כל החיילים לצדו": 
+		$user_that_rules_this_city=='YOU'? "העיר תישאר בשליטתך עד ששחקן אחר יעביר את כל החיילים לצדו":
 		"כדי לכבוש את העיר עליך לשכנע את כל החיילים לעבור לצדך");
 }
 
@@ -274,8 +282,8 @@ function article_url($wikisource_title) {
 function city_ruler_image_html($ruler_data) {
 	if (!$ruler_data) {
 		$ruler_data = array(
-			"id"=>0, 
-			"name"=>"אין שליט", 
+			"id"=>0,
+			"name"=>"אין שליט",
 			"thumbnail"=>"question_mark.png");
 	}
 	return user_image_with_link($ruler_data);
@@ -284,13 +292,13 @@ function city_ruler_image_html($ruler_data) {
 function soldier_loyalty_string($user_this_soldier_is_loyal_to, $loyalty_to_user=NULL, $loyalty_to_current_user=NULL) {
 	return (
 		$user_this_soldier_is_loyal_to=='YOU'?
-			($loyalty_to_user? " - נאמן לך ברמה $loyalty_to_user": ""): 
+			($loyalty_to_user? " - נאמן לך ברמה $loyalty_to_user": ""):
 			(
 				$user_this_soldier_is_loyal_to? " - נאמן ל-".$user_this_soldier_is_loyal_to .
-				($loyalty_to_user? " ברמה $loyalty_to_user": ""): 
+				($loyalty_to_user? " ברמה $loyalty_to_user": ""):
 				""
-			) . 
-			($loyalty_to_current_user? 
+			) .
+			($loyalty_to_current_user?
 				" ונאמן לך ברמה ".$loyalty_to_current_user: ""
 			)
 	);
@@ -338,9 +346,9 @@ function calculate_current_user_stats($value_to_refresh=NULL) {
 	if ($value_to_refresh) {
 		unset($current_user_stats[$value_to_refresh]);
 	} elseif (
-		!isset($current_user_stats['userid']) || 
+		!isset($current_user_stats['userid']) ||
 		$current_user_stats['userid']!=$current_userid || // update if userid is different
-		!isset($current_user_stats['updated_at']) || 
+		!isset($current_user_stats['updated_at']) ||
 		time() - $current_user_stats['updated_at'] > 3600) // update each hour
 	{
 			$current_user_stats = array();
@@ -357,13 +365,13 @@ function calculate_current_user_stats($value_to_refresh=NULL) {
 		$current_user_stats['treasures'] = sql_evaluate_array_key_value("SELECT treasure, COUNT(*) FROM user_treasure WHERE userid=$current_userid_quoted GROUP BY treasure");
 	if (!isset($current_user_stats['virtues']))
 		$current_user_stats['virtues'] = sql_evaluate_array("
-			SELECT 
-				virtue, 
+			SELECT
+				virtue,
 				COUNT(virtue) AS user_count,
 				virtue_count.count AS total_count
-			FROM user_article_virtue 
+			FROM user_article_virtue
 			LEFT JOIN virtue_count USING(virtue)
-			WHERE userid=$current_userid_quoted 
+			WHERE userid=$current_userid_quoted
 			GROUP BY virtue
 			");
 
@@ -391,7 +399,7 @@ function calculate_leader($domain, $land=NULL) {
 	if (!$table) return;
 
 	$query_template = "
-		SELECT userid, $group_function AS count 
+		SELECT userid, $group_function AS count
 		FROM $table
 		%s
 		GROUP BY userid
@@ -415,12 +423,12 @@ function calculate_leader($domain, $land=NULL) {
 	if ($land) {
 		$land_quoted = quote_all($land);
 		$land_leader_stats = sql_evaluate_assoc(sprintf($query_template,"WHERE land=$land_quoted"));
-	
+
 		if (!$land_leader_stats) {
 			user_error("No leader data for domain $domain, land $land_quoted", E_USER_WARNING);
 			return;
 		}
-	
+
 		if (!empty($land_leader_stats['userid']))
 			sql_query_or_die("
 				REPLACE INTO land_leaders(land, domain, userid, count, updated_at) VALUES (
@@ -436,9 +444,9 @@ function calculate_leader($domain, $land=NULL) {
 		foreach ($lands as $land) {
 			$land_quoted = quote_all($land);
 			$land_leader_stats = sql_evaluate_assoc(sprintf($query_template,"WHERE land=$land_quoted"));
-		
+
 			if (!$land_leader_stats) continue; // this is an error above but not here
-		
+
 			if (!empty($land_leader_stats['userid']))
 				sql_query_or_die("
 					REPLACE INTO land_leaders(land, domain, userid, count, updated_at) VALUES (
@@ -466,7 +474,7 @@ function user_stats_html($user_stats, $virtue_learned=NULL) {
 		$space";
 	foreach ($user_stats['treasures'] as $treasure=>$count) {
 		$html .= "
-			<b>$count</b> $treasure 
+			<b>$count</b> $treasure
 			$space";
 	}
 
@@ -502,7 +510,7 @@ function add_virtue_to_user($name, $article, $news_parameter=NULL) {
 
 	sql_query_or_die("
 		DELETE FROM user_news
-		WHERE land=$land_quoted 
+		WHERE land=$land_quoted
 		AND   city=$city_quoted
 		AND   userid=$current_userid_quoted
 		AND   parameter=$news_parameter_quoted
@@ -559,8 +567,8 @@ function user_name_for_display_encoded($row) {
 function user_image($row) {
 	$name_for_display_encoded = user_name_for_display_encoded($row);
 	$name_with_image = (
-		!empty($row['thumbnail'])? 
-			"<img class='thumbnail' src='$row[thumbnail]' alt='$name_for_display_encoded' title='$name_for_display_encoded' />": 
+		!empty($row['thumbnail'])?
+			"<img class='thumbnail' src='$row[thumbnail]' alt='$name_for_display_encoded' title='$name_for_display_encoded' />":
 			"<img class='thumbnail' src='/images/NoPictureGreen.png' alt='$name_for_display_encoded' title='$name_for_display_encoded' />");
 			//"<div class='thumbnail'>$name_for_display_encoded</div>");
 	return $name_with_image;
