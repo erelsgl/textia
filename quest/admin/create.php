@@ -48,9 +48,9 @@ function show_create_page() {
 	set_coalesce($GLOBALS['root_username'], coalesce($GLOBALS['root_username'],'root'));
 	set_coalesce($GLOBALS['root_password'], coalesce($GLOBALS['root_password'],''));
 	set_coalesce($GLOBALS['db_host'], coalesce($GLOBALS['db_host'],'localhost'));
-	set_coalesce($GLOBALS['db_name'], coalesce($GLOBALS['db_name'],''));
-	set_coalesce($GLOBALS['db_user'], coalesce($GLOBALS['db_user'],''));
-	set_coalesce($GLOBALS['db_pass'], coalesce($GLOBALS['db_pass'],''));
+	set_coalesce($GLOBALS['db_name'], coalesce($GLOBALS['db_name'],'textia'));
+	set_coalesce($GLOBALS['db_user'], coalesce($GLOBALS['db_user'],'textia'));
+	set_coalesce($GLOBALS['db_pass'], coalesce($GLOBALS['db_pass'],'textia'));
 
 	read("Realm for Open ID", "openid_realm");
 	
