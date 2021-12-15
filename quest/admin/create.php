@@ -12,9 +12,9 @@ print "
 
 ## Requirements
 		
-* Apache 2+
-* MySQL 5+
-* PHP 5+
+* Apache 2
+* MySQL 8
+* PHP 5-6
 * PHP-MySQL extension
 * PHP CURL module
 ";

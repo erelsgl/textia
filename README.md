@@ -5,9 +5,9 @@ This is the first **Wiki-Game** - a game that is entirely based on texts in a Wi
 This is a **multi-player persistent browser-based strategy game**. The players conquer cities and lands by answering automatically-generated questions about open-source texts.
 
 ## Requirements
-* Apache 2+
-* MySQL 5+
-* PHP 5+
+* Apache 2
+* PHP 5 - 6 
+* MySQL 8
 * PHP-MySQL extension
 * PHP CURL module
 
